@@ -4,7 +4,7 @@ Mini project modul untuk mempelajari **Docker** dan **Docker Compose** dengan me
 
 1. Clone repo ini
 ```bash
-   cd microstack-docker-lab
+   cd webapp-network-docker
 ```
 
 2. Jalankan container dengan Docker Compose

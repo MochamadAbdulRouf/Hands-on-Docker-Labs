@@ -4,7 +4,6 @@ Mini project modul untuk mempelajari **Docker** dan **Docker Compose** dengan me
 
 1. Clone repo ini
 ```bash
-   git clone https://github.com/MochamadAbdulRouf/microstack-docker-lab.git
    cd microstack-docker-lab
 ```
 

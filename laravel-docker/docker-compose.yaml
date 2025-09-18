@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  # 1. Layanan Aplikasi (PHP-FPM)
+  app:
+    build:
+      context: .
+      dockerfile: .docker/php/Dockerfile 
+    container_name: laravel_app
+    volumes:
+      # Jika semua code laravel ada di root folder, maka gunakan cara ini
+      # Terjadi error tadinya karena pakai path .my-laravel-app:/var/www/html
+      - .:/var/www/html
+    networks:
+      - laravel-net
+    # Port tidak di ekspos ke publik, Hanya bisa di akses oleh Nginx
+
+  # 2. Layanan Web Server (Nginx)
+  web:
+    image: nginx:1.25-alpine
+    container_name: laravel_web
+    ports:
+      - "8080:80"
+    volumes:
+      # Jika semua code laravel ada di root folder, maka gunakan cara ini
+      - .:/var/www/html
+      - ./.docker/nginx/default.conf:/etc/nginx/conf.d/default.conf 
+    depends_on:
+      - app
+    networks:
+      - laravel-net 
+  
+  # 3. Layanan Database (MySQL)
+  db:
+    image: mysql:8.0
+    container_name: laravel_db
+    restart: unless-stopped
+    environment:
+      # Set sytanx parameter expansion ke file .env
+      # Contoh kalau ada variabel DB_DATABASE di .env, maka yang dipakai nilainya.
+      # Kalau tidak ada maka defaultnya pakai "laravel"
+      MYSQL_DATABASE: ${DB_DATABASE:-laravel}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-password}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-password}
+      MYSQL_USER: ${DB_USERNAME:-sail}
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - laravel-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+  
+  # 4. Layanan Cache (Redis)
+  cache:
+    image: redis:7.2-alpine
+    container_name: laravel_cache
+    restart: unless-stopped
+    volumes: 
+      - redis-data:/data
+    networks:
+      - laravel-net
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      retries: 10
+      timeout: 20s
+
+# Definisi Jaringan dan Volume
+networks:
+  laravel-net:
+    driver: bridge
+
+volumes:
+  db-data:
+    driver: local
+  redis-data:
+    driver: local
+      

@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: test-app-visitor
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - counter-net
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7-alpine
+    container_name: visitor-redis 
+    networks:
+      - counter-net 
+
+networks:
+  counter-net:
+    driver: bridge

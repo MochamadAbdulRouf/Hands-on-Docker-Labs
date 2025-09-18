@@ -1,0 +1,21 @@
+# Ini adalah Dockerfile yang salah untuk penggunaannya karena terlalu besar dan sangat lama prosesnya
+
+# Stage 1: Ambil base image Node.js yang besar
+FROM node:18
+
+# Set direktori kerja
+WORKDIR /app
+
+# Copy semua file proyek (termasuk source code)
+COPY . .
+
+# Install semua dependencies (termasuk devDependencies yang tidak perlu di prod)
+RUN npm install
+
+# Build aplikasi React
+RUN npm run build
+
+# Perintah untuk menjalankan aplikasi (ini bahkan tidak akan jalan karena kita butuh web server)
+# CMD [ "???" ]
+# Jika kita membangun image ini, ukurannya akan sangat besar (> 1 GB) karena berisi seluruh OS, Node.js, npm, dan semua devDependencies. 
+# Ini juga tidak aman karena menyertakan tools build di image production.

@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  # 1. Layanan Frontend (Nginx) Pintu Gerbang Aplikasi
+  webapp:
+    image: nginx:alpine
+    container_name: webapp-prod
+    ports:
+    # memetakan port 8000 di mesin HOST ke port 80 di dalam container webapp
+      - "8000:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - app-network
+  
+  # 2. Layanan Backend (API) Otak Aplikasi
+  api:
+    build: ./api # Membangun image dari Dockerfile di direktori ./api
+    container_name: api-prod
+    environment:
+      # Variabel lingkungan untuk koneksi database
+      # Perhatikan DB_HOST menggunakan nama layanan 'db' bukan IP.
+      - DB_HOST=db 
+      - DB_USER=user
+      - DB_PASSWORD=secret
+      - DB_NAME=mydatabase
+    networks:
+      - app-network
+
+  # 3. Layanan Database - Penyimapanan Data Aplikasi
+  db:
+    image: postgres:13-alpine
+    container_name: db-prod
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=mydatabase
+    volumes:
+      - db-data:/var/lib/postgresql/data # Menyimpan data database secara persisten
+    networks:
+      - app-network
+    # Tidak ada 'ports' di sini. Database terisolasi sepenuhnya dari dunia luar
+
+
+# ---[ KONSEP 2 & 3: INTER-CONTAINER COMMUNICATION & DNS RESOLUTION ]---
+# Mendefinisikan jaringan custom bridge bernama 'app-network'.
+# Semua container yang terhubung ke jaringan ini bisa berkomunikasi satu sama lain
+# menggunakan nama layanan mereka (webapp, api, db) sebagai hostname.
+# Docker secara otomatis menyediakan DNS internal untuk ini.
+networks:
+  app-network:
+    driver: bridge
+
+# Mendifinisikan volume untuk persistensi data database
+volumes:
+  db-data:

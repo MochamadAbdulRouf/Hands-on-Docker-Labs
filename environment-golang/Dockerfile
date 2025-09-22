@@ -5,6 +5,6 @@ ENV APP_PORT=8080
 RUN mkdir app
 COPY main.go app 
 
-# EXPOSE port aplikasi menggunakan environtment variable yang telah dibuat
+# EXPOSE port aplikasi menggunakan environment variable yang telah dibuat
 EXPOSE ${APP_PORT}
 CMD go run app/main.go

@@ -1,7 +1,4 @@
-Oke Rouf, ini pertanyaan bagus banget 🔥
-`docker-compose.yml`, `Dockerfile`, dan `entrypoint.sh` saling terhubung untuk membentuk **workflow container Laravel**. Aku jelaskan dengan alurnya biar lebih jelas.
 
----
 
 ## 🧩 Hubungan Ketiga File
 

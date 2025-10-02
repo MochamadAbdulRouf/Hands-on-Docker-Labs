@@ -1,6 +1,4 @@
-File `default.conf` ini adalah konfigurasi **Nginx** yang dipakai untuk service `nginx` di `docker-compose.yml`. Aku rapikan dulu, lalu jelaskan per baris.
 
----
 
 ### Kode `default.conf` yang sudah dirapikan
 

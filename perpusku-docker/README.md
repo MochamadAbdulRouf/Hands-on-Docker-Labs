@@ -2,7 +2,7 @@
 
 ---
 
-## 🧩 Hubungan Ketiga File
+## Alur ketiga file
 
 ### 1. **`docker-compose.yml`**
 

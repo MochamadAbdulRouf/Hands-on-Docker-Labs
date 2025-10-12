@@ -14,10 +14,10 @@ func main() {
 }
 
 func HelloServer(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello, %s", r.URL.path[1:])
+	fmt.Fprintf(w, "Hello, %s", r.URL.Path[1:])
 	
 	dataString := "Hello " + r.URL.Path[1:]
-	dataBytes := []byte(dataString)]
+	dataBytes := []byte(dataString)
 	
 	destination := os.Getenv("APP_DATA")
 	file := destination + "/" + r.URL.Path[1:] + ".txt"

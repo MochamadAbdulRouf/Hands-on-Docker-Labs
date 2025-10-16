@@ -40,7 +40,7 @@ REPOSITORY                       TAG                     IMAGE ID       CREATED 
 mochabdulrouf/golang-app         latest                  7b557545c919   10 seconds ago   14.6MB
 ```
 
-3. Menjalankan container dari image aplikasi Go-Lang
+3. Menjalankan container menggunakan image aplikasi Go-Lang
 ```bash
 rouf@docker-client:~/multistage-docker$ docker run -d -p 8080:8080 mochabdulrouf/golang-app:latest
 6e56a543c9d6686cf38fd6698ca1be3d2effb6b5d117963e77c4ffb0ae0c41c4

@@ -53,7 +53,7 @@ CONTAINER ID   IMAGE                             COMMAND                  CREATE
 6e56a543c9d6   mochabdulrouf/golang-app:latest   "/bin/sh -c /app/main"   19 seconds ago   Up 19 seconds   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp   kind_clarke
 ```
 
-5. Pemeriksaan status Aplikasi Go-Lang berhasil berjalan 
+5. Pemeriksaan status Aplikasi Go-Lang berhasil berjalan, /app/main perintah yang digunakan untuk menjalankan aplikasi Go-Lang sudah berjalan.
 ```bash
 rouf@docker-client:~/multistage-docker$ docker exec -it 6e /bin/sh
 /app # ps aux

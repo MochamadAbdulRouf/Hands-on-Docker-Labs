@@ -164,3 +164,6 @@ Dockerfile → “resep” bikin image Laravel (app).
 entrypoint.sh → “otak” bootstrap Laravel sebelum php-fpm jalan.
 
 default.conf → “jembatan” request web dari user → Nginx → Laravel (app:9000).
+
+## Berikut link github repo dari Aplikasi Laravel
+https://github.com/bta-adinusa/perpus-laravel 
